@@ -9,12 +9,20 @@ namespace Blockcore.Explorer.Services
 
       public ServiceBase(string baseUrl)
       {
-         // RestClient is suppose to be able to be re-used. If not, we should move this into the Execute method.
-         client = new RestClient(baseUrl);
+         if (!string.IsNullOrWhiteSpace(baseUrl))
+         {
+            // RestClient is suppose to be able to be re-used. If not, we should move this into the Execute method.
+            client = new RestClient(baseUrl);
+         }
       }
 
       public T Execute<T>(RestRequest request) where T : new()
       {
+         if (client == null)
+         {
+            throw new ArgumentNullException("baseUrl");
+         }
+
          IRestResponse<T> response = client.Execute<T>(request);
 
          if (response.ErrorException != null)
@@ -29,6 +37,11 @@ namespace Blockcore.Explorer.Services
 
       public string Execute(RestRequest request)
       {
+         if (client == null)
+         {
+            throw new ArgumentNullException("baseUrl");
+         }
+
          IRestResponse response = client.Execute(request);
 
          if (response.ErrorException != null)

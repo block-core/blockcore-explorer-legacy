@@ -18,7 +18,7 @@ namespace Blockcore.Explorer.Services
 
       }
 
-      public TickerService(IMemoryCache memoryCache, IOptions<ExplorerSettings> settings) : base(settings.Value.Indexer.ApiUrl)
+      public TickerService(IMemoryCache memoryCache, IOptions<ExplorerSettings> settings) : base(settings.Value.Indexer?.ApiUrl)
       {
          this.memoryCache = memoryCache;
          this.settings = settings.Value;

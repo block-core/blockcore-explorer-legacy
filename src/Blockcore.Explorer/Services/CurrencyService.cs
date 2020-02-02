@@ -21,7 +21,7 @@ namespace Blockcore.Explorer.Services
 
       public CurrencyService(
           IMemoryCache memoryCache,
-          IOptions<ExplorerSettings> settings) : base(settings.Value.Currency.ApiUrl)
+          IOptions<ExplorerSettings> settings) : base(settings.Value.Currency?.ApiUrl)
       {
          this.memoryCache = memoryCache;
          this.settings = settings.Value;

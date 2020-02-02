@@ -13,7 +13,7 @@ namespace Blockcore.Explorer.Services
 
       }
 
-      public BlockIndexService(IOptions<ExplorerSettings> settings) : base(settings.Value.Indexer.ApiUrl)
+      public BlockIndexService(IOptions<ExplorerSettings> settings) : base(settings.Value.Indexer?.ApiUrl)
       {
          this.settings = settings.Value;
       }
