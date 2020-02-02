@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Blockcore.Explorer.Models;
 using Blockcore.Explorer.Models.ApiModels;
@@ -25,7 +26,16 @@ namespace Blockcore.Explorer.Controllers
           IOptions<ExplorerSettings> settings)
       {
          this.memoryCache = memoryCache;
-         stats = JsonConvert.DeserializeObject<Status>(this.memoryCache.Get("BlockchainStats").ToString());
+
+         if (this.memoryCache.Get("BlockchainStats") != null)
+         {
+            stats = JsonConvert.DeserializeObject<Status>(this.memoryCache.Get("BlockchainStats").ToString());
+         }
+         else
+         {
+            stats = new Status { Error = "BlockchainStats not available yet." };
+            }
+
          this.indexService = indexService;
          this.settings = settings.Value;
       }
@@ -36,23 +46,30 @@ namespace Blockcore.Explorer.Controllers
          ViewBag.Features = settings.Features;
          ViewBag.Setup = settings.Setup;
 
-         BlockModel latestBlock = indexService.GetLatestBlock();
-
-         ViewBag.LatestBlock = latestBlock;
-         ViewBag.BlockchainHeight = latestBlock.BlockIndex;
-
-         var latestBlocks = new List<dynamic>();
-         latestBlocks.Add(latestBlock);
-
-         for (int i = (int)ViewBag.LatestBlock.BlockIndex - 1; i >= (int)ViewBag.LatestBlock.BlockIndex - 5; i--)
+         try
          {
-            latestBlocks.Add(indexService.GetBlockByHeight(i));
+            BlockModel latestBlock = indexService.GetLatestBlock();
+
+            ViewBag.LatestBlock = latestBlock;
+            ViewBag.BlockchainHeight = latestBlock.BlockIndex;
+
+            var latestBlocks = new List<dynamic>();
+            latestBlocks.Add(latestBlock);
+
+            for (int i = (int)ViewBag.LatestBlock.BlockIndex - 1; i >= (int)ViewBag.LatestBlock.BlockIndex - 5; i--)
+            {
+               latestBlocks.Add(indexService.GetBlockByHeight(i));
+            }
+
+            ViewBag.Blocks = latestBlocks;
+
+            return View();
          }
-
-         ViewBag.Blocks = latestBlocks;
-
-         return View();
-
+         catch (Exception ex)
+         {
+            ViewBag.Error = ex;
+            return View();
+         }
       }
 
       [HttpGet]

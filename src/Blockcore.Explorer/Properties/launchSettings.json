@@ -2,7 +2,7 @@
    "profiles": {
       "Docker (Development)": {
          "commandName": "Docker",
-         "commandLineArgs": "--chain=Development",
+         "commandLineArgs": "--chain=Development --Explorer:Indexer:ApiUrl=http://localhost:9910/api/",
          "launchBrowser": true,
          "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
          "publishAllPorts": true

@@ -24,10 +24,10 @@ namespace Blockcore.Explorer
 
       public Startup(IConfiguration configuration)
       {
+         Configuration = configuration;
+
          CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
          CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-US");
-
-         Configuration = configuration;
       }
 
       public void ConfigureServices(IServiceCollection services)
@@ -40,15 +40,11 @@ namespace Blockcore.Explorer
          services.AddHostedService<DataUpdateService>();
 
          services.AddMemoryCache();
+         services.AddRazorPages();
 
          services.AddControllersWithViews().AddNewtonsoftJson(options =>
          {
             options.SerializerSettings.FloatFormatHandling = Newtonsoft.Json.FloatFormatHandling.DefaultValue;
-         });
-
-         services.AddRazorPages(options =>
-         {
-            options.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());
          });
 
          services.AddLocalization();
@@ -133,6 +129,7 @@ namespace Blockcore.Explorer
          app.UseEndpoints(endpoints =>
          {
             endpoints.MapDefaultControllerRoute();
+            endpoints.MapRazorPages();
          });
 
          app.UseSwagger(c =>
