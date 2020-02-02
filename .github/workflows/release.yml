@@ -2,7 +2,7 @@ name: Build and Release Docker Image
 
 on:
   release:
-    types: [published, prereleased, edited]
+    types: [published, prereleased]
 
 jobs:
   build:
@@ -33,7 +33,7 @@ jobs:
       - name: Login and Push to Docker Registry
         run: |
           docker login -u "sondreb" -p "${{secrets.DockerHubSecret}}"
-          docker push sondreb/explorer:latest
+          docker push sondreb/explorer
 
       # - name: Login and Push to GitHub Docker Registry
       #   run: |
