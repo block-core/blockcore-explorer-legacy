@@ -83,7 +83,7 @@ namespace Blockcore.Explorer.Services
             }
             catch (Exception ex)
             {
-               log.LogCritical(ex, "Failed to set blockchain stats cache.");
+               log.LogError(ex, "Failed to set blockchain stats cache.");
             }
          };
 
@@ -110,7 +110,7 @@ namespace Blockcore.Explorer.Services
             }
             catch (Exception ex)
             {
-               log.LogCritical(ex, "Failed to set ticker or rates.");
+               log.LogError(ex, "Failed to set ticker or rates.");
             }
          };
 

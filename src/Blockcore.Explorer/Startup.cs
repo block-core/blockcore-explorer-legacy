@@ -10,6 +10,7 @@ using Blockcore.Explorer.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
@@ -31,6 +32,13 @@ namespace Blockcore.Explorer
 
       public void ConfigureServices(IServiceCollection services)
       {
+         services.Configure<ExplorerSettings>(Configuration.GetSection("Explorer"));
+
+         services.AddSingleton<BlockIndexService>();
+         services.AddSingleton<TickerService>();
+         services.AddSingleton<CurrencyService>();
+         services.AddHostedService<DataUpdateService>();
+
          services.AddMemoryCache();
 
          services.AddControllersWithViews().AddNewtonsoftJson(options =>
@@ -38,12 +46,11 @@ namespace Blockcore.Explorer
             options.SerializerSettings.FloatFormatHandling = Newtonsoft.Json.FloatFormatHandling.DefaultValue;
          });
 
-         services.Configure<ExplorerSettings>(Configuration.GetSection("Explorer"));
+         services.AddRazorPages(options =>
+         {
+            options.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());
+         });
 
-         services.AddSingleton<BlockIndexService>();
-         services.AddSingleton<TickerService>();
-         services.AddSingleton<CurrencyService>();
-         services.AddHostedService<DataUpdateService>();
          services.AddLocalization();
 
          services.AddSwaggerGen(
