@@ -1,0 +1,43 @@
+@model Ticker
+@{
+   if (ViewBag.Features.Ticker)
+   {
+      ViewBag.Title = $"{ViewBag.Setup.Chain} (${ViewBag.Setup.Coin}) price ticker";
+   }
+   else
+   {
+       ViewBag.Title = "Home";
+   }
+}
+<div class="shadow-inset"></div>
+<section class="welcome-area pb-4" id="welcome-1">
+   <div class="header-token">
+      <div class="container">
+         <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 align-self-center text-center">
+
+               @if (ViewBag.Features.Ticker)
+               {
+                  <h1 class="m-0">The <strong>$@ViewBag.Setup.Coin</strong> price in real time.</h1>
+                  <h1 class="align-middle">
+                     <span class="align-middle display-1 font-weight-bold" id="amount">@(Model.PriceBtc) <i class="reduced-fab fab fa-btc"></i></span>
+                     <span id="lastchange" class="d-block d-lg-inline-block change-@(Model.Last24Change > 0 ? "success":"danger") font-weight-bold"><sup> <span class="d-none d-lg-inline-block">@((Model.Last24Change > 0 ? "+" : ""))</span> <span class="inner">@(Model.Last24Change.ToString("P2"))</span></sup></span>
+                     <div class="align-middle display-3 font-weight-bold" id="amount">@(Model.Price.ToString("C2"))</div>
+                  </h1>
+               }
+
+               <a asp-controller="BlockExplorer" asp-action="Index" class="btn-secondary-box"><i class="fa fa-cube"></i> Go to Block Explorer</a>
+               @if (ViewBag.Features.Ticker)
+               {
+                  <a href="@ViewBag.Ticker.WebUrl" class="btn-secondary-box" target="_blank"><i class="fas fa-dollar-sign"></i> Price Details</a>
+               }
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+@section Scripts
+    {
+
+   }
+}

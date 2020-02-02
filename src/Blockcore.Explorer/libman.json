@@ -1,0 +1,22 @@
+{
+  "version": "1.0",
+  "defaultProvider": "unpkg",
+  "libraries": [
+    {
+      "library": "bootstrap@4.3.1",
+      "destination": "wwwroot/lib/bootstrap"
+    },
+    {
+      "library": "jquery-countdown@2.2.0",
+      "destination": "wwwroot/lib/jquery-countdown"
+    },
+    {
+      "library": "jquery-ajax-unobtrusive@3.2.6",
+      "destination": "wwwroot/lib/jquery-ajax-unobtrusive"
+    },
+    {
+      "library": "moment@2.24.0",
+      "destination": "wwwroot/lib/moment"
+    }
+  ]
+}
