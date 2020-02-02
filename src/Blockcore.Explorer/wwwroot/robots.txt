@@ -1,0 +1,5 @@
+User-Agent: *
+Disallow: /block-explorer/address
+Disallow: /block-explorer/block
+Disallow: /block-explorer/transaction
+Disallow: /api/
