@@ -49,6 +49,5 @@ namespace Blockcore.Explorer.Services
          request.Resource = resource;
          return request;
       }
-
    }
 }

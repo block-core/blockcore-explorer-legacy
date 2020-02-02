@@ -58,6 +58,9 @@ namespace Blockcore.Explorer
             {
                System.IO.Stream stream = result.Content.ReadAsStreamAsync().Result;
                config.AddJsonStream(stream);
+
+               // We will re-add command line to ensure command line can override.
+               config.AddCommandLine(args);
             }
             else
             {

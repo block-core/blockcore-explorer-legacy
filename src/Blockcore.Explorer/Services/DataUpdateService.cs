@@ -4,25 +4,29 @@ using System.Threading.Tasks;
 using Blockcore.Explorer.Settings;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace Blockcore.Explorer.Services
 {
    public class DataUpdateService : IHostedService, IDisposable
    {
+      private readonly ILogger<DataUpdateService> log;
       private readonly BlockIndexService blockIndexService;
       private readonly TickerService tickerService;
       private readonly IMemoryCache memoryCache;
       private readonly ExplorerSettings settings;
-      private System.Timers.Timer nakoTimer;
+      private System.Timers.Timer indexerTimer;
       private System.Timers.Timer tickerTimer;
 
       public DataUpdateService(
+         ILogger<DataUpdateService> log,
           BlockIndexService blockIndexService,
           TickerService tickerService,
           IMemoryCache memoryCache,
           IOptions<ExplorerSettings> settings)
       {
+         this.log = log;
          this.tickerService = tickerService;
          this.blockIndexService = blockIndexService;
          this.memoryCache = memoryCache;
@@ -33,36 +37,57 @@ namespace Blockcore.Explorer.Services
       {
          if (settings.Features.Explorer)
          {
-            nakoTimer = new System.Timers.Timer();
-            StartNakoTimer();
+            try
+            {
+               indexerTimer = new System.Timers.Timer();
+               StartIndexerTimer();
+            }
+            catch (Exception ex)
+            {
+               log.LogCritical(ex, "Failed to start indexer timer.");
+            }
          }
 
          if (settings.Features.Ticker)
          {
-            tickerTimer = new System.Timers.Timer();
-            StartTickerTimer(cancellationToken);
+            try
+            {
+               tickerTimer = new System.Timers.Timer();
+               StartTickerTimer(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+               log.LogCritical(ex, "Failed to start ticker timer.");
+            }
          }
 
          return Task.CompletedTask;
       }
 
-      private void StartNakoTimer()
+      private void StartIndexerTimer()
       {
-         nakoTimer.AutoReset = false; // Make sure it only trigger once initially.
+         indexerTimer.AutoReset = false; // Make sure it only trigger once initially.
 
-         nakoTimer.Elapsed += (sender, args) =>
+         indexerTimer.Elapsed += (sender, args) =>
          {
-            if (nakoTimer.AutoReset == false)
+            if (indexerTimer.AutoReset == false)
             {
-               nakoTimer.Interval = TimeSpan.FromSeconds(30).TotalMilliseconds;
-               nakoTimer.AutoReset = true;
+               indexerTimer.Interval = TimeSpan.FromSeconds(30).TotalMilliseconds;
+               indexerTimer.AutoReset = true;
             }
 
-            // Get statistics and cache it.
-            memoryCache.Set("BlockchainStats", blockIndexService.GetStatistics());
+            try
+            {
+               // Get statistics and cache it.
+               memoryCache.Set("BlockchainStats", blockIndexService.GetStatistics());
+            }
+            catch (Exception ex)
+            {
+               log.LogCritical(ex, "Failed to set blockchain stats cache.");
+            }
          };
 
-         nakoTimer.Start();
+         indexerTimer.Start();
       }
 
       private void StartTickerTimer(CancellationToken cancellationToken)
@@ -77,11 +102,16 @@ namespace Blockcore.Explorer.Services
                tickerTimer.AutoReset = true;
             }
 
-            // Get ticker and cache it.
-            memoryCache.Set("Ticker", tickerService.DownloadTicker());
-            memoryCache.Set("Rates", tickerService.DownloadRates());
-
-            //await hubContext.Clients.All.SendAsync("UpdateTicker", cancellationToken);
+            try
+            {
+               // Get ticker and cache it.
+               memoryCache.Set("Ticker", tickerService.DownloadTicker());
+               memoryCache.Set("Rates", tickerService.DownloadRates());
+            }
+            catch (Exception ex)
+            {
+               log.LogCritical(ex, "Failed to set ticker or rates.");
+            }
          };
 
          tickerTimer.Start();
@@ -94,8 +124,8 @@ namespace Blockcore.Explorer.Services
 
       public void Dispose()
       {
-         nakoTimer?.Stop();
-         nakoTimer?.Dispose();
+         indexerTimer?.Stop();
+         indexerTimer?.Dispose();
 
          tickerTimer?.Stop();
          tickerTimer?.Dispose();

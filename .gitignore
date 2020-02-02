@@ -6,6 +6,8 @@
 *.user
 *.sln.docstates
 
+node_modules
+
 .vs/
 Blockcore.Indexer.xml
 
