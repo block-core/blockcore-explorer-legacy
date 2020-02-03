@@ -4,7 +4,7 @@
 [2]: https://github.com/block-core/blockcore-explorer/workflows/Build%20and%20Release%20Binaries/badge.svg
 [3]: https://github.com/block-core/blockcore-explorer/workflows/Build%20and%20Release%20Docker%20Image/badge.svg
 
-[![Build Status][2]][1] [![Release Status][2]][1]
+[![Build Status][2]][1] [![Release Status][3]][1]
 
 ## Build and Setup
 
