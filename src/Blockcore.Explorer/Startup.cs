@@ -32,6 +32,7 @@ namespace Blockcore.Explorer
 
       public void ConfigureServices(IServiceCollection services)
       {
+         services.Configure<ChainSettings>(Configuration.GetSection("Chain"));
          services.Configure<ExplorerSettings>(Configuration.GetSection("Explorer"));
 
          services.AddSingleton<BlockIndexService>();

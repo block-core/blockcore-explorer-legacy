@@ -17,13 +17,15 @@ namespace Blockcore.Explorer.Controllers
    public class BlockExplorerController : Controller
    {
       private readonly ExplorerSettings settings;
+      private readonly ChainSettings chainSettings;
       private readonly IMemoryCache memoryCache;
       private readonly Status stats;
       private readonly BlockIndexService indexService;
 
       public BlockExplorerController(IMemoryCache memoryCache,
           BlockIndexService indexService,
-          IOptions<ExplorerSettings> settings)
+          IOptions<ExplorerSettings> settings,
+          IOptions<ChainSettings> chainSettings)
       {
          this.memoryCache = memoryCache;
 
@@ -38,6 +40,7 @@ namespace Blockcore.Explorer.Controllers
 
          this.indexService = indexService;
          this.settings = settings.Value;
+         this.chainSettings = chainSettings.Value;
       }
 
       [HttpGet]
@@ -45,6 +48,7 @@ namespace Blockcore.Explorer.Controllers
       {
          ViewBag.Features = settings.Features;
          ViewBag.Setup = settings.Setup;
+         ViewBag.Chain = chainSettings;
 
          try
          {
@@ -78,6 +82,7 @@ namespace Blockcore.Explorer.Controllers
       {
          ViewBag.Features = settings.Features;
          ViewBag.Setup = settings.Setup;
+         ViewBag.Chain = chainSettings;
 
          if (searchBlockExplorer.Query == null)
          {
@@ -105,6 +110,7 @@ namespace Blockcore.Explorer.Controllers
       {
          ViewBag.Features = settings.Features;
          ViewBag.Setup = settings.Setup;
+         ViewBag.Chain = chainSettings;
 
          ViewBag.BlockchainHeight = stats.SyncBlockIndex;
 
@@ -130,6 +136,7 @@ namespace Blockcore.Explorer.Controllers
       {
          ViewBag.Features = settings.Features;
          ViewBag.Setup = settings.Setup;
+         ViewBag.Chain = chainSettings;
 
          ViewBag.BlockchainHeight = stats.SyncBlockIndex;
 
@@ -142,6 +149,7 @@ namespace Blockcore.Explorer.Controllers
       {
          ViewBag.Features = settings.Features;
          ViewBag.Setup = settings.Setup;
+         ViewBag.Chain = chainSettings;
 
          ViewBag.BlockchainHeight = stats.SyncBlockIndex;
 

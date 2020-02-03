@@ -6,8 +6,8 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>@ViewBag.Title | @ViewBag.Setup.Title</title>
    <meta name="Content-Language" content="en">
-   <meta name="Description" content="@(ViewBag.Description ?? $"{ViewBag.Setup.Title} is a Simple and Free ${ViewBag.Setup.Coin} ticker, an Address Generator and a Vanity Address service.")">
-   <meta name="Keywords" content="bitcoin,cryptos,cryptocurrencies,coins,$@ViewBag.Setup.Coin,ticker,explorer,block explorer">
+   <meta name="Description" content="@(ViewBag.Description ?? $"{ViewBag.Setup.Title} is a simple and free ${ViewBag.Chain.Symbol} ticker.")">
+   <meta name="Keywords" content="bitcoin,cryptos,cryptocurrencies,coins,$@ViewBag.Chain.Symbol,ticker,explorer,block explorer">
    <link rel="icon" type="image/png" href="/favicon">
    <link href="~/css/bootstrap.min.css" rel="stylesheet" type="text/css">
    <link href="~/css/all.css?v2" rel="stylesheet" type="text/css">
@@ -27,9 +27,9 @@
                 <div class="col-12">
                     <nav class="main-nav">
                         <a asp-controller="Home" asp-action="Index" class="logo ">
-                            @if (!string.IsNullOrWhiteSpace(ViewBag.Setup.Icon))
+                            @if (!string.IsNullOrWhiteSpace(ViewBag.Chain.Icon))
                             {
-                                <img src="@ViewBag.Setup.Icon" class="" alt="@ViewBag.Setup.Title" />
+                                <img src="@ViewBag.Chain.Icon" class="" alt="@ViewBag.Setup.Title" />
                             }
                             else
                             {
