@@ -18,17 +18,20 @@ namespace Blockcore.Explorer.Controllers
       private readonly TickerService tickerService;
       private readonly CurrencyService currencyService;
       private readonly ExplorerSettings settings;
+      private readonly ChainSettings chainSettings;
       private readonly ILogger<HomeController> log;
 
       public HomeController(IMemoryCache memoryCache,
           ILogger<HomeController> log,
           TickerService tickerService,
           CurrencyService currencyService,
-          IOptions<ExplorerSettings> settings)
+          IOptions<ExplorerSettings> settings,
+          IOptions<ChainSettings> chainSettings)
       {
          this.memoryCache = memoryCache;
          this.log = log;
          this.settings = settings.Value;
+         this.chainSettings = chainSettings.Value;
          this.tickerService = tickerService;
          this.currencyService = currencyService;
       }
@@ -42,6 +45,7 @@ namespace Blockcore.Explorer.Controllers
 
          ViewBag.Features = settings.Features;
          ViewBag.Setup = settings.Setup;
+         ViewBag.Chain = chainSettings;
          ViewBag.Ticker = settings.Ticker;
          ViewBag.Url = Request.Host.ToString();
 
@@ -75,6 +79,7 @@ namespace Blockcore.Explorer.Controllers
       {
          ViewBag.Features = settings.Features;
          ViewBag.Setup = settings.Setup;
+         ViewBag.Chain = chainSettings;
 
          return View();
       }

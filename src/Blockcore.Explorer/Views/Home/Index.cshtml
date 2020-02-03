@@ -2,7 +2,7 @@
 @{
    if (ViewBag.Features.Ticker)
    {
-      ViewBag.Title = $"{ViewBag.Setup.Chain} (${ViewBag.Setup.Coin}) price ticker";
+      ViewBag.Title = $"{ViewBag.Chain.Name} (${ViewBag.Chain.Symbol}) price ticker";
    }
    else
    {
@@ -18,7 +18,7 @@
 
                @if (ViewBag.Features.Ticker)
                {
-                  <h1 class="m-0">The <strong>$@ViewBag.Setup.Coin</strong> price in real time.</h1>
+                  <h1 class="m-0">The <strong>$@ViewBag.Chain.Symbol</strong> price in real time.</h1>
                   <h1 class="align-middle">
                      <span class="align-middle display-1 font-weight-bold" id="amount">@(Model.PriceBtc) <i class="reduced-fab fab fa-btc"></i></span>
                      <span id="lastchange" class="d-block d-lg-inline-block change-@(Model.Last24Change > 0 ? "success":"danger") font-weight-bold"><sup> <span class="d-none d-lg-inline-block">@((Model.Last24Change > 0 ? "+" : ""))</span> <span class="inner">@(Model.Last24Change.ToString("P2"))</span></sup></span>

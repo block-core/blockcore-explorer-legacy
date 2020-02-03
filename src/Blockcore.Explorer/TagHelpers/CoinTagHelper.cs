@@ -11,14 +11,17 @@ namespace Blockcore.Explorer.TagHelpers
    {
       private readonly ExplorerSettings settings;
 
+      private readonly ChainSettings chainSettings;
+
       private readonly ILogger<CoinTagHelper> log;
 
       [HtmlAttributeName("Positive")]
       public bool? Positive { get; set; }
 
-      public CoinTagHelper(IOptions<ExplorerSettings> settings, ILogger<CoinTagHelper> log)
+      public CoinTagHelper(IOptions<ExplorerSettings> settings, IOptions<ChainSettings> chainSettings, ILogger<CoinTagHelper> log)
       {
          this.settings = settings.Value;
+         this.chainSettings = chainSettings.Value;
          this.log = log;
       }
 
@@ -39,7 +42,7 @@ namespace Blockcore.Explorer.TagHelpers
             try
             {
                string[] values = (value / 100000000d).ToString("N8").Split(NumberFormatInfo.CurrentInfo.CurrencyDecimalSeparator);
-               string html = $"<span class=\"coin-value-upper {cssExtra}\">{values[0]}</span><span class=\"coin-value-lower {cssExtra}\">{NumberFormatInfo.CurrentInfo.CurrencyDecimalSeparator}{values[1]}</span> <span class=\"coin-value-tag {cssExtra}\">{settings.Setup.Coin}</span>";
+               string html = $"<span class=\"coin-value-upper {cssExtra}\">{values[0]}</span><span class=\"coin-value-lower {cssExtra}\">{NumberFormatInfo.CurrentInfo.CurrencyDecimalSeparator}{values[1]}</span> <span class=\"coin-value-tag {cssExtra}\">{chainSettings.Symbol}</span>";
                output.Content.SetHtmlContent(html);
             }
             catch (Exception ex)

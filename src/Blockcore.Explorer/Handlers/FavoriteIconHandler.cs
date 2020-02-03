@@ -13,11 +13,11 @@ namespace Blockcore.Explorer.Handlers
    {
       private readonly RequestDelegate next;
 
-      private readonly ExplorerSettings settings;
+      private readonly ChainSettings settings;
 
       private readonly HttpClient http;
 
-      public FavoriteIconHandler(RequestDelegate next, IOptions<ExplorerSettings> settings)
+      public FavoriteIconHandler(RequestDelegate next, IOptions<ChainSettings> settings)
       {
          this.next = next;
          this.settings = settings.Value;
@@ -26,14 +26,14 @@ namespace Blockcore.Explorer.Handlers
 
       public async Task Invoke(HttpContext context)
       {
-         if (string.IsNullOrWhiteSpace(settings.Setup.Icon))
+         if (string.IsNullOrWhiteSpace(settings.Icon))
          {
             context.Response.StatusCode = 404;
             return;
          }
 
          // Perhaps in the future this can be improved a tiny bit?
-         byte[] bytes = await http.GetByteArrayAsync(settings.Setup.Icon);
+         byte[] bytes = await http.GetByteArrayAsync(settings.Icon);
          await context.Response.Body.WriteAsync(bytes, 0, bytes.Length);
       }
    }
