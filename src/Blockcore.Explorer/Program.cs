@@ -47,8 +47,7 @@ namespace Blockcore.Explorer
             }
             else
             {
-               // TODO: Update this to master branch when it is updated.
-               url = $"https://raw.githubusercontent.com/block-core/chaininfo/feature/add-existing-setups/chains/{chain}.json";
+               url = $"https://chains.blockcore.net/chains/{chain}.json";
             }
 
             var http = new HttpClient();
