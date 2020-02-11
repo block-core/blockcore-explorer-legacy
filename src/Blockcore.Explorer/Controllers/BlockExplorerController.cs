@@ -76,7 +76,7 @@ namespace Blockcore.Explorer.Controllers
          }
       }
 
-      [HttpGet]
+      [HttpGet, HttpPost]
       [Route("search")]
       public IActionResult Search(SearchBlockExplorer searchBlockExplorer)
       {
@@ -154,6 +154,11 @@ namespace Blockcore.Explorer.Controllers
          ViewBag.BlockchainHeight = stats.SyncBlockIndex;
 
          TransactionDetailsModel trx = indexService.GetTransaction(transactionId);
+
+         if (trx != null && trx.TransactionId == null)
+         {
+            return RedirectToAction("BlockHash", new { hash = transactionId });
+         }
 
          return View(trx);
       }
