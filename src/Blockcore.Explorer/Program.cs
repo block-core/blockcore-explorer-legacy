@@ -15,6 +15,8 @@ namespace Blockcore.Explorer
    {
       public static void Main(string[] args)
       {
+         Console.WriteLine("Starting Blockcore Explorer...");
+
          CreateHostBuilder(args).Build().Run();
       }
 
@@ -33,6 +35,8 @@ namespace Blockcore.Explorer
                throw new ArgumentNullException("--chain", "You must specify the --chain argument. It can be either chain name, or URL to a json configuration.");
             }
 
+            Console.WriteLine("CHAIN: " + chain);
+
             if (chain == "Development")
             {
                // Skip external loading as we'll only rely on the local appsettings.json and appsettings.Development.json.
@@ -49,6 +53,8 @@ namespace Blockcore.Explorer
             {
                url = $"https://chains.blockcore.net/chains/{chain}.json";
             }
+
+            Console.WriteLine("SETUP: " + url);
 
             var http = new HttpClient();
             HttpResponseMessage result = http.GetAsync(url).Result;

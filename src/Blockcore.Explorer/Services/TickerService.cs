@@ -1,3 +1,4 @@
+using System;
 using Blockcore.Explorer.Models;
 using Blockcore.Explorer.Settings;
 using Microsoft.Extensions.Caching.Memory;
@@ -26,6 +27,11 @@ namespace Blockcore.Explorer.Services
 
       public string DownloadTicker()
       {
+         if (settings.Currency == null || string.IsNullOrWhiteSpace(settings.Ticker.ApiUrl))
+         {
+            throw new ApplicationException("The Ticker.ApiUrl configuration setting is missing. Unable to download ticker.");
+         }
+
          var client = new RestClient(settings.Ticker.ApiUrl);
          var request = new RestRequest(Method.GET);
          IRestResponse result = client.Execute(request);
@@ -34,6 +40,11 @@ namespace Blockcore.Explorer.Services
 
       public string DownloadRates()
       {
+         if (settings.Currency == null || string.IsNullOrWhiteSpace(settings.Currency.ApiUrl))
+         {
+            throw new ApplicationException("The Currency.ApiUrl configuration setting is missing. Unable to download rates.");
+         }
+
          var client = new RestClient(settings.Currency.ApiUrl);
          var request = new RestRequest(Method.GET);
          IRestResponse result = client.Execute(request);
