@@ -91,7 +91,7 @@
                                 <tr>
                                     <td><a asp-controller="BlockExplorer" asp-action="Transaction" asp-route-transactionId="@transaction.TransactionHash">@transaction.TransactionHash.ToString().Substring(0, 25)...</a></td>
                                     <td><a asp-controller="BlockExplorer" asp-action="Block" asp-route-block="@transaction.BlockIndex">@transaction.BlockIndex</a></td>
-                                    <td><time hide="true">@transaction.Time</time></td>
+                                    <td><time>@transaction.Time</time></td>
                                     <td><coin positive="@(transaction.Value > 0)">@transaction.Value</coin></td>
                                 </tr>
                             }
