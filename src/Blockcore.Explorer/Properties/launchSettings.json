@@ -52,6 +52,15 @@
          },
          "applicationUrl": "http://localhost:9911/"
       },
+      "XLR": {
+         "commandName": "Project",
+         "commandLineArgs": "--chain=XLR",
+         "launchBrowser": true,
+         "environmentVariables": {
+            "ASPNETCORE_ENVIRONMENT": "Development"
+         },
+         "applicationUrl": "http://localhost:9911/"
+      },
       "X42": {
          "commandName": "Project",
          "commandLineArgs": "--chain=X42",

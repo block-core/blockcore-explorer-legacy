@@ -70,8 +70,6 @@ namespace Blockcore.Explorer.Services
 
             if (token != null)
             {
-               double last24Change = (double)token / 100;
-
                if (settings.Ticker.IsBitcoinPrice)
                {
                   Money.TryParse(json.SelectToken(settings.Ticker.PricePath).ToString(), out Money price);
@@ -83,7 +81,16 @@ namespace Blockcore.Explorer.Services
                   ticker.Price = price; // Set the USD price, might be replaced with local currency price.
                }
 
-               ticker.Last24Change = last24Change;
+               try
+               {
+                  // With very little trading, the change might be null and crash.
+                  double last24Change = (double)token / 100;
+                  ticker.Last24Change = last24Change;
+               }
+               catch
+               {
+
+               }
             }
          }
 
