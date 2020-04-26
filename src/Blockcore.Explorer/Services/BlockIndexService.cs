@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Blockcore.Explorer.Models.ApiModels;
 using Blockcore.Explorer.Settings;
 using Microsoft.Extensions.Options;
@@ -47,6 +49,13 @@ namespace Blockcore.Explorer.Services
       {
          string result = Execute(GetRequest("/stats"));
          return result;
+      }
+
+      public List<PeerInfo> GetPeers(DateTime fromDate) => Execute<List<PeerInfo>>(GetRequest("/info/peers/" + fromDate.ToString("yyyy-MM-dd")));
+
+      public CoinInfo GetNodeInfo()
+      {
+         return Execute<CoinInfo>(GetRequest("/stats/info"));
       }
    }
 }

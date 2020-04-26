@@ -51,7 +51,7 @@
 
                            @if (ViewBag.Features.Network)
                            {
-                              <li class="@(Context.Request.Path.Equals(Url.Action("Index", "Network")) ? "active":"")"><a asp-action="Index" asp-controller="BlockExplorer"><i class="fas fa-project-diagram"></i> NETWORK</a></li>
+                              <li class="@(Context.Request.Path.Equals(Url.Action("Index", "Network")) ? "active":"")"><a asp-action="Index" asp-controller="Network"><i class="fas fa-project-diagram"></i> NETWORK</a></li>
                            }
 
                            @if (ViewBag.Features.API)

@@ -21,6 +21,15 @@ It is prefer to use either Visual Studio 2019 or Visual Studio Code to develop o
 The easiest way is to run debugging directly from either of these editors, but it is also possible to 
 run using Docker.
 
+### Auto-Build
+
+You can navigate to the Blockcore.Explorer project folder and run this command to enable watcher and auto-build of the code.
+You must still manually reload the browser window.
+
+```
+dotnet watch run --chain=CITY
+```
+
 ## Docker
 
 Manual build from the source directory:

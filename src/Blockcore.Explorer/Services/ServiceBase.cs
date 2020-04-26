@@ -60,7 +60,7 @@ namespace Blockcore.Explorer.Services
          request.AddQueryParameter("api-version", "1.0");
          request.Method = Method.GET;
          request.Resource = resource;
-         return request;
+         return request;   
       }
    }
 }

@@ -1,0 +1,97 @@
+@model Blockcore.Explorer.Models.ApiModels.CoinInfo
+
+@{
+   ViewBag.Title = "Network";
+   ViewBag.Description = "";
+   Layout = "_Layout";
+}
+
+<section class="block-explorer-wrapper network-info-wrapper" id="welcome-1">
+</section>
+
+<div class="shadow-inset"></div>
+<section class="welcome-area pb-4 network-info" id="welcome-1">
+   <div class="header-token">
+      <div class="container">
+         <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 align-self-center">
+               <h1>Blockchain</h1>
+               <p>
+                  <span class="text-muted">Name:</span> @Model.Name<br />
+                  <span class="text-muted">Description:</span> @Model.Description<br />
+                  <span class="text-muted">Website:</span> <a href="@Model.Url">@Model.Url</a><br />
+                  <span class="text-muted">Symbol:</span> @Model.Symbol<br />
+                  <span class="text-muted">Height:</span> @Model.BlockHeight<br />
+                  @*Logo: <img src="@Model.Logo"><br />*@
+               </p>
+
+               <h1>Network</h1>
+               <p>
+                  <span class="text-muted">Network:</span> @Model.Node.Blockchain.Chain<br />
+                  <span class="text-muted">Sync Progress:</span> @Model.Node.Progress (Indexer/Chain - Remaining)<br />
+                  <span class="text-muted">Transactions In Pool:</span> @Model.Node.TransactionsInPool<br />
+                  <span class="text-muted">Blocks pr minute:</span> @Model.Node.BlocksPerMinute<br />
+                  <span class="text-muted">Average Blocks Saved pr. Second:</span> @Model.Node.AvgBlockPersistInSeconds<br />
+                  <span class="text-muted">Average Block Size:</span> @Model.Node.AvgBlockSizeKb<br />
+                  <span class="text-muted">BestBlockHash:</span> @Model.Node.Blockchain.BestBlockHash<br />
+                  <span class="text-muted">difficulty:</span> @Model.Node.Blockchain.Difficulty<br />
+                  <span class="text-muted">medianTime:</span> @Model.Node.Blockchain.MedianTime<br />
+                  <span class="text-muted">verificationProgress:</span> @Model.Node.Blockchain.VerificationProgress<br />
+                  <span class="text-muted">isInitialBlockDownload:</span> @Model.Node.Blockchain.IsInitialBlockDownload<br />
+                  isPruned: @Model.Node.Blockchain.IsPruned<br />
+                  Node Version: @Model.Node.Network.Version<br />
+                  subVersion: @Model.Node.Network.SubVersion<br />
+                  protocolVersion: @Model.Node.Network.ProtocolVersion<br />
+                  Connections: @Model.Node.Network.Connections<br />
+                  relayFee: @Model.Node.Network.RelayFee<br />
+                  incrementalFee: @Model.Node.Network.IncrementalFee<br />
+               </p>
+
+               <h1>Configuration (Consensus)</h1>
+               <p>
+
+                  defaultPort: @Model.Configuration.DefaultPort<br />
+                  defaultRPCPort: @Model.Configuration.DefaultRPCPort<br />
+                  DefaultAPIPort: @Model.Configuration.DefaultAPIPort<br />
+                  defaultSignalRPort: @Model.Configuration.DefaultSignalRPort<br />
+                  fallbackFee: @Model.Configuration.FallbackFee<br />
+                  minRelayTxFee: @Model.Configuration.MinRelayTxFee<br />
+                  minTxFee: @Model.Configuration.MinTxFee<br />
+                  networkType: @Model.Configuration.NetworkType<br />
+                  seedNodes: @Model.Configuration.SeedNodes<br />
+                  dnsSeeds: @Model.Configuration.DNSSeeds<br />
+                  defaultMaxInboundConnections: @Model.Configuration.DefaultMaxInboundConnections<br />
+                  defaultMaxOutboundConnections: @Model.Configuration.DefaultMaxOutboundConnections<br />
+                  genesisDate: @Model.Configuration.GenesisDate<br />
+                  genesisHash: @Model.Configuration.GenesisHash<br />
+
+                  coinType: @Model.Configuration.Consensus.CoinType<br />
+                  coinbaseMaturity: @Model.Configuration.Consensus.CoinbaseMaturity<br />
+                  isProofOfStake : @Model.Configuration.Consensus.IsProofOfStake<br />
+                  maxMoney: @Model.Configuration.Consensus.MaxMoney<br />
+                  premineReward: @Model.Configuration.Consensus.PremineReward<br />
+                  proofOfStakeReward: @Model.Configuration.Consensus.ProofOfStakeReward<br />
+                  proofOfWorkReward: @Model.Configuration.Consensus.ProofOfWorkReward<br />
+                  lastPOWBlock: @Model.Configuration.Consensus.LastPOWBlock<br />
+                  targetSpacing: @Model.Configuration.Consensus.TargetSpacing<br />
+               </p>
+
+               <h2>Peers (Last 24 hours)</h2>
+
+               <div class="network-info container">
+                  @foreach (var peer in ViewBag.Peers)
+                  {
+                     <div class="row">
+                        <div class="col-sm justify-content-start">@peer.SubVer</div>
+                        <div class="col-sm justify-content-start text-muted">@peer.Addr</div>
+                        <div class="col-sm justify-content-start text-muted">@peer.LastSeen</div>
+                     </div>
+                     <br>
+                  }
+               </div>
+               <br /><br /><br />
+            </div>
+         </div>
+      </div>
+   </div>
+</section>

@@ -1,4 +1,4 @@
-﻿
+
 #lastchange {
     display: inline-block !important;
 }
@@ -34,6 +34,18 @@
     word-break: break-all
 }
 
+.network-info {
+    color: white !important;
+}
+
+.network-info a {
+      text-decoration: underline !important;
+   }
+
+   .network-info a:hover {
+      text-decoration: none !important;
+   }
+
 @media (max-width: 1090px) {
     .display-1 {
         font-size: 4.6rem !important;
@@ -46,6 +58,10 @@
     .welcome-area .header-token h1 {
         font-size: 36px !important;
     }
+
+   .network-info-wrapper {
+      min-height: 360px !important;
+   }
 }
 
 @media (max-width: 767px) {
@@ -60,19 +76,15 @@
     .welcome-area .header-token h1 {
         font-size: 24px !important;
     }
+
+   .network-info-wrapper {
+      min-height: 0px !important;
+   }
 }
 
-@media (max-width: 479px) {
+@media (min-width:768px) and (max-width: 991px) {
 
-    .display-1 {
-        font-size: 2rem !important;
-    }
-
-    .display-3 {
-        font-size: 1.2rem !important;
-    }
-
-    .welcome-area .header-token h1 {
-        font-size: 18px !important;
-    }
+   .network-info-wrapper {
+      min-height: 0px !important;
+   }
 }

@@ -2213,6 +2213,10 @@ roadmap
     .roadmap-full .roadmap-item-full p {
         text-align: center;
     }
+
+   .network-info-wrapper {
+      min-height: 0px !important;
+   }
 }
 
 /* 
