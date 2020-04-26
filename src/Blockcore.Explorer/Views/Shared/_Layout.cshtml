@@ -39,25 +39,30 @@
 
                         </a>
                         <ul class="nav">
-                            @if (ViewBag.Features.Home)
-                            {
-                                <li class="@(Context.Request.Path.Equals(Url.Action("Index", "Home")) ? "active":"")"><a asp-action="Index" asp-controller="Home"><i class="fa fa-home"></i> HOME</a></li>
-                            }
+                           @if (ViewBag.Features.Home)
+                           {
+                              <li class="@(Context.Request.Path.Equals(Url.Action("Index", "Home")) ? "active":"")"><a asp-action="Index" asp-controller="Home"><i class="fa fa-home"></i> HOME</a></li>
+                           }
 
-                            @if (ViewBag.Features.Explorer)
-                            {
-                                <li class="@(Context.Request.Path.Equals(Url.Action("Index", "BlockExplorer")) ? "active":"")"><a asp-action="Index" asp-controller="BlockExplorer"><i class="fa fa-cube"></i> BLOCK EXPLORER</a></li>
-                            }
+                           @if (ViewBag.Features.Explorer)
+                           {
+                              <li class="@(Context.Request.Path.Equals(Url.Action("Index", "BlockExplorer")) ? "active":"")"><a asp-action="Index" asp-controller="BlockExplorer"><i class="fa fa-cube"></i> BLOCK EXPLORER</a></li>
+                           }
 
-                            @if (ViewBag.Features.API)
-                            {
-                                <li><a href="@ViewBag.Setup.DocumentationUrl"><i class="fa fa-book"></i> API</a></li>
-                            }
+                           @if (ViewBag.Features.Network)
+                           {
+                              <li class="@(Context.Request.Path.Equals(Url.Action("Index", "Network")) ? "active":"")"><a asp-action="Index" asp-controller="BlockExplorer"><i class="fas fa-project-diagram"></i> NETWORK</a></li>
+                           }
 
-                            @if (ViewBag.Features.About)
-                            {
-                                <li class="@(Context.Request.Path.Equals(Url.Action("About", "Home")) ? "active":"")"><a asp-action="About" asp-controller="Home"><i class="fa fa-info-circle"></i> ABOUT</a></li>
-                            }
+                           @if (ViewBag.Features.API)
+                           {
+                              <li><a href="@ViewBag.Setup.DocumentationUrl"><i class="fa fa-book"></i> API</a></li>
+                           }
+
+                           @if (ViewBag.Features.About)
+                           {
+                              <li class="@(Context.Request.Path.Equals(Url.Action("About", "Home")) ? "active":"")"><a asp-action="About" asp-controller="Home"><i class="fa fa-info-circle"></i> ABOUT</a></li>
+                           }
                         </ul>
                         <a class='menu-trigger'>
                             <span>Menu</span>
